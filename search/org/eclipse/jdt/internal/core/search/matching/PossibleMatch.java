@@ -106,9 +106,7 @@ private char[] getQualifiedName() {
 		if (fileName == NO_SOURCE_FILE_NAME)
 			return ((ClassFile) this.openable).getType().getFullyQualifiedName('.').toCharArray();
 
-		// Class file may have a source file name with ".java" extension (see bug 73784)
-		int index = Util.indexOfJavaLikeExtension(fileName);
-		String simpleName = index==-1 ? fileName : fileName.substring(0, index);
+		String simpleName = fileName.substring(0, Util.indexOfJavaLikeExtension(fileName));
 		PackageFragment pkg = (PackageFragment) this.openable.getParent();
 		return Util.concatWith(pkg.names, simpleName, '.').toCharArray();
 	}
